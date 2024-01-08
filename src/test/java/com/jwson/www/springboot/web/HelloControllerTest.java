@@ -1,6 +1,6 @@
 package com.jwson.www.springboot.web;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -12,10 +12,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+//테스트 진행시 SpringRunner라는 스프링 실행자를 사용
 @RunWith(SpringRunner.class)
 @WebMvcTest(controllers = HelloController.class)
 public class HelloControllerTest {
 
+    //빈을 주입받는다.
     @Autowired
     private MockMvc mvc;
 
@@ -23,7 +25,7 @@ public class HelloControllerTest {
     public void return_hello() throws Exception{
 
         String hello="hello";
-
+        //mvc가 get request를 보내고 , .and expect를 통해 결과 검증
         mvc.perform(get("/hello"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(hello));
@@ -33,7 +35,7 @@ public class HelloControllerTest {
     public void return_helloDto() throws Exception{
         String name ="hello";
         int amount = 1000;
-
+        //json path = json 응답값을 필드로 검증하는 메소드.
         mvc.perform(
                 get("/hello/dto")
                         .param("name",name)
